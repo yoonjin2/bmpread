@@ -27,19 +27,19 @@ int main(int argc, char **argv)
                 unsigned char Red=pix->R,Blue=pix->B,Green=pix->G,gray=(Green+Red+Blue)/PIXEL_SIZE;
                 c=ascii[gray*sizeof(ascii)/256];
                 fprintf(outfile,"%c",c);
-                if(Green>Red && Green>Blue && Green-Blue>=50)
+                if(Green>Red && Green>Blue && Green-Blue>10)
                     printf(GREEN"%c"RESET,c );
                 else if(Red>Blue && Red>Green  && Green+Blue<=125 && Red>=125)
                     printf(RED"%c"RESET,c);
                 else if(Green>Blue && Red>Blue && abs(Green-Red)<=50)
                     printf(YELLOW"%c"RESET,c);
-                else if(Green>Red&&abs(Green-Blue)<=50 &&(Green-Red>=50|Blue-Red>=50))
+                else if(Green>Red)
                     printf(CYAN"%c"RESET,c);
                 else if(Blue>Green)
                 {
-                    if(Blue>Red && (Red+Green)<=125)
+                    if(Blue>Red)
                         printf(BLUE"%c"RESET,c);
-                    else if(Blue>=Red && abs(Blue-Red)<=50)
+                    else if(Red>=Blue && abs(Blue-Red)<=50)
                         printf(MAGENTA"%c"RESET,c);
                 }
                 else
