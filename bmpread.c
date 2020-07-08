@@ -6,7 +6,7 @@ int main(int argc, char **argv)
     char ascii[]={'#','#','@','%','=','+','*',':','-','.',' '};
     FILE *infile,*outfile=fopen("RESULT.txt","wt");
     infile=fopen(argv[1],"rb");
-    if(infile==NULL)return;
+    if(infile==NULL)return 1;
     BITMAPFILEH hf;
     BITMAPINFOH info;
     fread(&hf,sizeof(BITMAPFILEH),1,infile);

@@ -1,4 +1,4 @@
-#pragma pack(push, 1);
+#pragma pack(push, 1)
 #define RED "\x1b[31m"
 #define GREEN "\x1b[32m"
 #define YELLOW "\x1b[33m"
@@ -36,4 +36,4 @@ typedef struct RGBQUAD
     unsigned char G;
     unsigned char R;
 } RGB;
-#pragma pack (pop);
+#pragma pack (pop)
