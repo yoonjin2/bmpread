@@ -3,7 +3,7 @@
 #include "bmpread.h"
 int main(int argc, char **argv)
 {
-    char ascii[]={'#','#','@','%','=','+','*',':','-','.',' '};
+    char ascii[]={'#','@','$','&','=','+','^','-',',','.',' '};
     FILE *infile,*outfile=fopen("RESULT.txt","wt");
     infile=fopen(argv[1],"rb");
     if(infile==NULL)return 1;
@@ -27,11 +27,23 @@ int main(int argc, char **argv)
                 unsigned char Red=pix->R,Blue=pix->B,Green=pix->G,gray=(Green+Red+Blue)/PIXEL_SIZE;
                 c=ascii[gray*sizeof(ascii)/256];
                 fprintf(outfile,"%c",c);
-                if(Green>Red && Green>Blue && Green-Blue>10)
+
+                if((gray*sizeof(ascii)/256)>6) {
+                    printf(RESET"%c"RESET,c);
+                } else if ((gray*sizeof(ascii)/256)<3) {
+                    printf(RESET"%c"RESET,c);
+                }
+                else if(Green>Red && Green>Blue) {
                     printf(GREEN"%c"RESET,c );
-                else if(Red>Blue && Red>Green  && Green+Blue<=125 && Red>=125)
-                    printf(RED"%c"RESET,c);
-                else if(Green>Blue && Red>Blue && abs(Green-Red)<=50)
+                }
+                else if(Red>Blue && Red>Green  && (Green+Blue)<=Red && (Green-Red<-25)) {
+                    if( (Red-(Green+Blue)/1.3)<0 ) {
+                        printf(RESET"%c"RESET,c);
+                    } else {
+                        printf(RED"%c"RESET,c);
+                    }
+                }
+                else if(Green>Blue && Red>Blue)
                     printf(YELLOW"%c"RESET,c);
                 else if(Green>Red)
                     printf(CYAN"%c"RESET,c);
@@ -41,13 +53,12 @@ int main(int argc, char **argv)
                         printf(BLUE"%c"RESET,c);
                     else if(Red>=Blue && abs(Blue-Red)<=50)
                         printf(MAGENTA"%c"RESET,c);
-                }
-                else
-                    printf(RESET"%c"RESET,c);
-
+            } else {
+                printf(RESET"%c"RESET,c);
             }
-            putc('\n',stdout);
-            fputc('\n',outfile);
+        } 
+        putc('\n',stdout);
+        fputc('\n',outfile);
     }
 fclose(infile);
 return 0;
