@@ -36,16 +36,14 @@ int main(int argc, char **argv)
                 else if(Green>Red && Green>Blue) {
                     printf(GREEN"%c"RESET,c );
                 }
-                else if(Red>Blue && Red>Green  && (Green+Blue)<=Red && (Green-Red<-25)) {
-                    if( (Red-(Green+Blue)/1.3)<0 ) {
-                        printf(RESET"%c"RESET,c);
+                else if(Red>Blue && Red>Green  && (Green+Blue)<=Red ) {
+                    if( (Red-(Green*2))<0 ) {
+                        printf(YELLOW"%c"RESET,c);
                     } else {
                         printf(RED"%c"RESET,c);
                     }
                 }
-                else if(Green>Blue && Red>Blue)
-                    printf(YELLOW"%c"RESET,c);
-                else if(Green>Red)
+                else if(Green>Red&&Blue>Green)
                     printf(CYAN"%c"RESET,c);
                 else if(Blue>Green)
                 {
